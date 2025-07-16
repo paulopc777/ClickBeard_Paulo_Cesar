@@ -1,0 +1,17 @@
+{
+  "name": "clickbeard_paulo_cesar",
+  "version": "1.0.0",
+  "description": "TESTE TÉCNICO FULL STACK ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/type-provider-typebox": "^5.2.0",
+    "fastify": "^5.4.0",
+    "prisma": "^6.12.0",
+    "typescript": "^5.8.3"
+  }
+}

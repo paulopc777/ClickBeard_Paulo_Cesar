@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Barber {
+  id             String           @id @default(cuid())
+  name           String
+  age            Int
+  email          String           @unique
+  contact_date   DateTime?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  BarberServices BarberServices[]
+}
+
+model BarberServices {
+  id        String   @id @default(cuid())
+  barberId  String
+  serviceId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  barber  Barber  @relation(fields: [barberId], references: [id])
+  service Service @relation(fields: [serviceId], references: [id])
+}
+
+model Service {
+  id            String           @id @default(cuid())
+  name          String
+  price         Float
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  BarberService BarberServices[]
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model WorkingSchedule {
+  id         String    @id @default(cuid())
+  companyId  String
+  dayOfWeek  DayOfWeek
+  startTime  String // Formato HH:MM (ex: "09:00")
+  endTime    String // Formato HH:MM (ex: "18:00")
+  lunchStart String? // Formato HH:MM (ex: "12:00") - opcional
+  lunchEnd   String? // Formato HH:MM (ex: "13:00") - opcional
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([companyId, dayOfWeek])
+}
