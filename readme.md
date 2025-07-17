@@ -1,6 +1,6 @@
 # Requisitos
 
-- [ ] Utilização do banco de dados Postgres
+- [x] Utilização do banco de dados Postgres
 
 ## Autenticação
 
