@@ -41,6 +41,8 @@ export default async function SeedDatabase() {
             name: "Jane Smith",
             email: "jane@example.com",
             age: 30,
+            password: "securepassword",
+            admin: true,
             contact_date: new Date(),
         }
     })
