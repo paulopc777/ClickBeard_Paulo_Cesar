@@ -3,12 +3,12 @@ import { RequestAuthClientDto, ResponseAuthClientDto } from "../../../../applica
 import { Static } from "@fastify/type-provider-typebox";
 import "@fastify/jwt"
 import PrismaUserRepository from "../../../../database/model/user.model";
-import ClientLogin from "../../../../application/use-cases/auth/ClientLogin";
+import ClientLogin from "../../../../application/services/auth/ClientLogin";
 
 
 export default async function AuthClient(app: FastifyInstance) {
 
-    app.post<{ Body: Static<typeof RequestAuthClientDto> }>('/login', {
+    app.post<{ Body: Static<typeof RequestAuthClientDto> }>('/', {
         schema: {
             body: RequestAuthClientDto,
             response: {

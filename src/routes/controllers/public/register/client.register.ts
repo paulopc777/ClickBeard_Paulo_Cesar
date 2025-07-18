@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import PrismaUserRepository from "../../../../database/model/user.model";
-import RegisterClient from "../../../../application/use-cases/register/RegisterClient";
+import RegisterClient from "../../../../application/services/register/RegisterClient";
 import { RequestRegisterClientDto, ResponseRegisterClientDto } from "../../../../application/dto/register.client.dto";
 
 export default async function ClientRegister(app: FastifyInstance) {

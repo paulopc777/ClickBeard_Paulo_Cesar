@@ -19,9 +19,11 @@ model User {
 
 model Barber {
   id             String           @id @default(cuid())
+  admin          Boolean          @default(false)
   name           String
   age            Int
   email          String           @unique
+  password       String
   contact_date   DateTime?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
