@@ -4,12 +4,12 @@
 
 ## Autenticação
 
-- [ ] Cadastro de Cliente
+- [x] Cadastro de Cliente
     - Nome 
     - Email 
     - Senha
-- [ ] Email Único
-- [ ] Oauth JWT
+- [x] Email Único
+- [x] Oauth JWT
 
 ## Empresa
 
