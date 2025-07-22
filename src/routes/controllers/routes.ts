@@ -6,6 +6,8 @@ import ClientRoutes from "./private/client/ClientRoutes";
 import Services from "./public/services/services";
 import { PublicScheduleRoute } from "./public/schedule/schedule.route";
 import WorkingScheduleRoute from "./public/working_schedule/working_schedule";
+import CompanyRoutes from "./private/company/CompanyRoutes";
+import AdminRoutes from "./private/admin/AdminRoutes";
 
 export default function Routes(app: FastifyInstance) {
   // Public
@@ -18,7 +20,7 @@ export default function Routes(app: FastifyInstance) {
   });
 
   app.register(CompanyAuth, {
-    prefix: "/company/login",
+    prefix: "/company",
   });
 
   app.register(Services, {
@@ -35,4 +37,13 @@ export default function Routes(app: FastifyInstance) {
   app.register(ClientRoutes, {
     prefix: "/client",
   });
+  // Admin pages
+  app.register(AdminRoutes, {
+    prefix: "/admin",
+  });
+  // Company
+  app.register(CompanyRoutes, {
+    prefix: "/company",
+  })
+
 }

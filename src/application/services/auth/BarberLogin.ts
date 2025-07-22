@@ -13,7 +13,7 @@ export default async function BarberLogin({ barber_repository, data }: BarberLog
     const { email, password } = data;
 
     // Find barber by email
-    const barber = await barber_repository.findById(email);
+    const barber = await barber_repository.findByEmail(email);
 
     if (!barber || barber.password !== password) {
         throw new Error("Barber not found");

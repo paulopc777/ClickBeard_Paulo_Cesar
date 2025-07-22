@@ -5,7 +5,7 @@ import BarberLogin from "../../../../application/services/auth/BarberLogin";
 import PrismaBarberRepository from "../../../../database/model/barber.model";
 
 export default async function CompanyAuth(app: FastifyInstance) {
-    app.post('/', {
+    app.post('/login', {
         schema: {
             body: RequestAuthClientDto,
             response: {
@@ -21,11 +21,17 @@ export default async function CompanyAuth(app: FastifyInstance) {
         })
 
         return reply.send({
-            token: app.jwt.sign({ email }),
+            token: app.jwt.sign({
+                id: barber.id,
+                name: barber.name,
+                email: barber.email,
+                barber: true // Assuming this is a barber user
+            }),
             user: {
                 id: barber.id,
                 name: barber.name,
-                email: barber.email
+                email: barber.email,
+                barber: true // Assuming this is a barber user
             }
         });
     });
