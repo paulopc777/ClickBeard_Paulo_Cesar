@@ -20,7 +20,12 @@ export default async function AuthClient(app: FastifyInstance) {
 
         const user_repository = new PrismaUserRepository();
         const { user } = await ClientLogin({ user_repository, data: { email, password } });
-        const token = app.jwt.sign({ email });
+        const token = app.jwt.sign({
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            barber: user.barber
+        });
 
         return reply.send({ token, user });
     });

@@ -13,6 +13,7 @@ interface ClientLoginResponse {
         id: string;
         email: string;
         name: string;
+        barber: boolean;
     }
 }
 
@@ -36,6 +37,7 @@ export default async function ClientLogin({ user_repository, data }: DataLogin):
             id: user.id,
             email: user.email,
             name: user.name,
+            barber: false
         }
     }
 }

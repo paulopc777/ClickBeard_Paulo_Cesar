@@ -16,11 +16,12 @@ const ResponseAuthClientDto = Type.Object({
     user: Type.Object({
         id: Type.String(),
         email: Type.String(),
-        name: Type.String()
+        name: Type.String(),
+        barber: Type.Boolean()
     })
 })
 
 export {
-    RequestAuthClientDto,
+    RequestAuthClientDto,   
     ResponseAuthClientDto
 }

@@ -4,7 +4,7 @@ export default async function SeedDatabase() {
   const prisma = new PrismaClient();
 
   // Create User
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       email: "user@example.com",
       name: "John Doe",
@@ -149,25 +149,29 @@ export default async function SeedDatabase() {
         // endTime is 30 minutes later
         endTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 15, 30, 0, 0),
         serviceId: services[0].id,
+        userId: user.id
       },
       {
         barberId: barber.id,
-         startTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 16, 0, 0, 0),
+        startTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 16, 0, 0, 0),
         // endTime is 30 minutes later
         endTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 16, 30, 0, 0),
         serviceId: services[1].id,
+        userId: user.id
       },
       {
         barberId: barber2.id,
         startTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0, 0),
         endTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 30, 0, 0),
         serviceId: services[2].id,
+        userId: user.id
       },
       {
         barberId: barber2.id,
         startTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 0, 0, 0),
         endTime: new Date(now.getFullYear(), now.getMonth(), now.getDate(), 17, 30, 0, 0),
         serviceId: services[3].id,
+        userId: user.id
       },
     ],
   });
