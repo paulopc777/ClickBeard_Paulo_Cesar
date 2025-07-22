@@ -6,6 +6,7 @@ import ClientJWT from "../../../../types/client.jwt";
 import PrismaScheduleRepository from "../../../../database/model/schedules.model";
 import { RegisterNewScheduleValidatorBody, RegisterNewScheduleValidatorParams } from "../../../../application/dto/RegisterNewScheduleValidatior";
 import { Static } from "@fastify/type-provider-typebox";
+import ClientListSchedules from "../../../../application/services/schedule/ClientListSchedules";
 
 async function PublicScheduleRoute(app: FastifyInstance) {
   app.get("/:service", async (request, reply) => {
@@ -57,6 +58,22 @@ async function ClientScheduleRoute(app: FastifyInstance) {
       start: new Date(start)
     })
     reply.send(schedule);
+  });
+
+  app.get("/", async (request, reply) => {
+    const user = request.user as ClientJWT;
+    const { isActive } = request.query as { isActive?: boolean };
+    if (!user || !user.id) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+
+    const schedules = await ClientListSchedules({
+      Schedules_repository: new PrismaScheduleRepository(),
+      user,
+      isActive
+    });
+
+    return reply.send(schedules);
   });
 }
 
