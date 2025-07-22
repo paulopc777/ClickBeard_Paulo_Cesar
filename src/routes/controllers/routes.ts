@@ -3,22 +3,36 @@ import AuthClient from "./public/auth/auth.client";
 import ClientRegister from "./public/register/client.register";
 import CompanyAuth from "./public/auth/auth.company";
 import ClientRoutes from "./private/client/ClientRoutes";
+import Services from "./public/services/services";
+import ScheduleRoute from "./public/schedule/schedule.route";
+import WorkingScheduleRoute from "./public/working_schedule/working_schedule";
 
 export default function Routes(app: FastifyInstance) {
-    // Public
-    app.register(AuthClient, {
-        prefix: '/login'
-    });
+  // Public
+  app.register(AuthClient, {
+    prefix: "/login",
+  });
 
-    app.register(ClientRegister, {
-        prefix: '/register'
-    });
+  app.register(ClientRegister, {
+    prefix: "/register",
+  });
 
-    app.register(CompanyAuth, {
-        prefix: '/company/login'
-    })
-    // Private
-    app.register(ClientRoutes, {
-        prefix: '/client'
-    })
+  app.register(CompanyAuth, {
+    prefix: "/company/login",
+  });
+
+  app.register(Services, {
+    prefix: "/services",
+  });
+
+  app.register(ScheduleRoute, {
+    prefix: "/schedule",
+  });
+  app.register(WorkingScheduleRoute, {
+    prefix: "/working-schedule",
+  });
+  // Private
+  app.register(ClientRoutes, {
+    prefix: "/client",
+  });
 }

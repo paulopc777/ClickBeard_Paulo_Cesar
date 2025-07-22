@@ -21,6 +21,7 @@ model Barber {
   id             String           @id @default(cuid())
   admin          Boolean          @default(false)
   name           String
+  avatar         String?
   age            Int
   email          String           @unique
   password       String
@@ -28,6 +29,7 @@ model Barber {
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   BarberServices BarberServices[]
+  Schedules      Schedules[]
 }
 
 model BarberServices {
@@ -44,10 +46,26 @@ model BarberServices {
 model Service {
   id            String           @id @default(cuid())
   name          String
+  image         String?
   price         Float
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
   BarberService BarberServices[]
+  Schedules     Schedules[]
+}
+
+model Schedules {
+  id        String   @id @default(cuid())
+  barberId  String
+  startTime DateTime // Formato HH:MM (ex: "09:00")
+  endTime   DateTime // Formato HH:MM (ex: "18:00")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  serviceId String
+
+  service Service @relation(fields: [serviceId], references: [id])
+  barber  Barber  @relation(fields: [barberId], references: [id])
 }
 
 enum DayOfWeek {
@@ -61,16 +79,14 @@ enum DayOfWeek {
 }
 
 model WorkingSchedule {
-  id         String    @id @default(cuid())
-  companyId  String
-  dayOfWeek  DayOfWeek
-  startTime  String // Formato HH:MM (ex: "09:00")
-  endTime    String // Formato HH:MM (ex: "18:00")
-  lunchStart String? // Formato HH:MM (ex: "12:00") - opcional
-  lunchEnd   String? // Formato HH:MM (ex: "13:00") - opcional
-  isActive   Boolean   @default(true)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-
-  @@unique([companyId, dayOfWeek])
+  id               String    @id @default(cuid())
+  dayOfWeek        DayOfWeek
+  dayOfWeek_number Int
+  startTime        String // Formato HH:MM (ex: "09:00")
+  endTime          String // Formato HH:MM (ex: "18:00")
+  lunchStart       String? // Formato HH:MM (ex: "12:00") - opcional
+  lunchEnd         String? // Formato HH:MM (ex: "13:00") - opcional
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }

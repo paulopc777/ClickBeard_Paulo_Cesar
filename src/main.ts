@@ -7,6 +7,11 @@ fastify.register(require('@fastify/jwt'), {
     secret: "ser",
 })
 
+fastify.register(require('@fastify/cors'), {
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+})
+
 fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
 })
