@@ -57,20 +57,21 @@ model Service {
 }
 
 model Schedules {
-  id        String   @id @default(cuid())
-  barberId  String
-  startTime DateTime // Formato HH:MM (ex: "09:00")
-  endTime   DateTime // Formato HH:MM (ex: "18:00")
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  serviceId String
-  userId  String
-  
+  id          String   @id @default(cuid())
+  barberId    String
+  startTime   DateTime // Formato HH:MM (ex: "09:00")
+  endTime     DateTime // Formato HH:MM (ex: "18:00")
+  isActive    Boolean  @default(true)
+  isCanceled   Boolean  @default(false)
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  serviceId   String
+  userId      String
+
   service Service @relation(fields: [serviceId], references: [id])
   barber  Barber  @relation(fields: [barberId], references: [id])
-  User    User   @relation(fields: [userId], references: [id])
-
+  User    User    @relation(fields: [userId], references: [id])
 }
 
 enum DayOfWeek {

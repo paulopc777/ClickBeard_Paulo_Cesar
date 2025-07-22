@@ -7,6 +7,7 @@ import PrismaScheduleRepository from "../../../../database/model/schedules.model
 import { RegisterNewScheduleValidatorBody, RegisterNewScheduleValidatorParams } from "../../../../application/dto/RegisterNewScheduleValidatior";
 import { Static } from "@fastify/type-provider-typebox";
 import ClientListSchedules from "../../../../application/services/schedule/ClientListSchedules";
+import CancelSchedule from "../../../../application/services/schedule/CancelSchedule";
 
 async function PublicScheduleRoute(app: FastifyInstance) {
   app.get("/:service", async (request, reply) => {
@@ -75,6 +76,29 @@ async function ClientScheduleRoute(app: FastifyInstance) {
 
     return reply.send(schedules);
   });
+
+  app.delete("/cancel/:id", async (request, reply) => {
+    const user = request.user as ClientJWT;
+    const { id } = request.params as { id: string };
+
+    if (!user || !user.id) {
+      return reply.status(401).send({ message: "Unauthorized" });
+    }
+
+    const schedule = CancelSchedule({
+      Schedules_repository: new PrismaScheduleRepository(),
+      user,
+      scheduleId: id
+    });
+
+
+    if (!schedule) {
+      return reply.status(404).send({ message: "Schedule not found" });
+    }
+
+    return reply.send({ message: "Schedule cancelled successfully" });
+  })
+
 }
 
 export {

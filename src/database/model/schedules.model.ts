@@ -48,7 +48,19 @@ export default class PrismaScheduleRepository implements IScheduleRepository {
     invalidate_schedule(scheduleId: string): Promise<Schedules | null> {
         const schedule = prisma.schedules.update({
             where: { id: scheduleId },
-            data: { isActive: false }
+            data: { isCanceled: true }
+        });
+        return schedule;
+    }
+
+    get_schedule_by_id(scheduleId: string): Promise<Schedules | null> {
+        const schedule = prisma.schedules.findUnique({
+            where: { id: scheduleId },
+            include: {
+                barber: true,
+                service: true,
+                User: true
+            }
         });
         return schedule;
     }
