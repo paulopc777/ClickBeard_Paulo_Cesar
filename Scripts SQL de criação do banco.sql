@@ -1,3 +1,5 @@
+CREATE DATABASE "clickbeard";
+
 -- Enum para os dias da semana
 CREATE TYPE "DayOfWeek" AS ENUM (
   'MONDAY',
