@@ -4,7 +4,7 @@ import RegisterNewSchedule from "../../../../application/services/schedule/Regis
 import '@fastify/jwt'
 import ClientJWT from "../../../../types/client.jwt";
 import PrismaScheduleRepository from "../../../../database/model/schedules.model";
-import { RegisterNewScheduleValidatorBody, RegisterNewScheduleValidatorParams } from "../../../../application/dto/RegisterNewScheduleValidatior";
+import { RegisterNewScheduleValidatorBody, RegisterNewScheduleValidatorParams } from "../../../../application/dto/RegisterNewScheduleValidator";
 import { Static } from "@fastify/type-provider-typebox";
 import ClientListSchedules from "../../../../application/services/schedule/ClientListSchedules";
 import CancelSchedule from "../../../../application/services/schedule/CancelSchedule";

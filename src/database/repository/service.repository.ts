@@ -3,6 +3,7 @@ import { Service } from "../../generated/prisma";
 export default interface IServiceRepository {
   findAll(): Promise<Service[]>;
   findById(id: string): Promise<Service | null>;
+  findByName(name: string): Promise<Service | null>;
   getServiceWithBarbers(): Promise<
     ({
       BarberService: ({
@@ -34,7 +35,8 @@ export default interface IServiceRepository {
       updatedAt: Date;
     })[]
   >;
-  create(data: any): Promise<Service>;
-  update(id: string, data: any): Promise<Service | null>;
+  create(data: { name: string, price: number, image?: string }): Promise<Service>;
+  update(id: string, data: { name?: string, price?: number, image?: string, barbers?: string[] }): Promise<Service | null>;
   delete(id: string): Promise<boolean>;
+  addBarbers(serviceId: string, barberIds: string[]): Promise<void>;
 }
