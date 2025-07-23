@@ -23,6 +23,7 @@ export default async function RegisterNewSchedule({ Schedules_repository, user, 
 
     const end = new Date(start.getTime() + 60 * 30 * 1000); // Assuming a 30-min duration
 
+    
     console.log({
         start,
         end,
@@ -30,6 +31,16 @@ export default async function RegisterNewSchedule({ Schedules_repository, user, 
         serviceId: service_id,
         userId: user.id
     })
+
+    const existingSchedule = await Schedules_repository.get_schedule_start_time(barber, start.toISOString());
+    if (existingSchedule) {
+        return {
+            success: false,
+            message: 'Schedule already exists for this barber at the selected time',
+            user_id: user.id
+        };
+    }
+
     const Schedule = await Schedules_repository.create({
         start,
         end,

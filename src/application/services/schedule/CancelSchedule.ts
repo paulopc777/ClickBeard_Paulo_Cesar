@@ -25,6 +25,14 @@ export default async function CancelSchedule({
         };
     }
 
+    const twoHoursBefore = new Date(schedule.startTime.getTime() - 2 * 60 * 60 * 1000);
+    if (new Date() > twoHoursBefore) {
+        return {
+            success: false,
+            message: 'Cancellation period has expired'
+        };
+    }
+
     await Schedules_repository.invalidate_schedule(scheduleId);
 
     return {
